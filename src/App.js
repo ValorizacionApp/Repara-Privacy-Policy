@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import file from "./TÉRMINOS Y CONDICIONES DE USO DE REPARA.pdf";
+import { Viewer } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+import { Worker } from "@react-pdf-viewer/core"; // install this library
+
+// Create new plugin instance
 
 function App() {
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="pdf-container">
+      {file && (
+        <>
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
+            <Viewer fileUrl={file} plugins={[defaultLayoutPluginInstance]} />
+          </Worker>
+        </>
+      )}
     </div>
   );
 }
